@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace serendipia_playlist_generator
+namespace milonga_generator
 {
     static class Program
     {

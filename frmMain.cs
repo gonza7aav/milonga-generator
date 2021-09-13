@@ -1,326 +1,273 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Windows.Forms;
 
-namespace serendipia_playlist_generator
+namespace milonga_generator
 {
     public partial class frmMain : Form
     {
-        List<Genre> genres;
-        int genreSongQuantity;
-        bool makeIntervals;
-        bool useSameInterval;
-        string intervalsFolder;
+        Playlist playlist;
+
+        bool isTipInterludePathShowing;
 
         public frmMain()
         {
             InitializeComponent();
-            genres = new List<Genre>();
+
+            playlist = new Playlist();
+
+            isTipInterludePathShowing = false;
+
+            // add the mouse move event for the group where is txtInterludesPath (disable)
+            grpInterludes.MouseMove += new MouseEventHandler(this.grpInterludes_MouseMove);
         }
 
         private void frmMain_Load(object sender, EventArgs e)
         {
-            // Load config
-            try
-            {
-                genreSongQuantity = Properties.Settings.Default.genreSongQuantity;
-                txtGenreSongQuatity.Text = genreSongQuantity.ToString();
-            }
-            catch
-            {
-                Console.WriteLine("genreSongQuantity configuration not found.");
-            }
+            frmMain_Update();
+        }
 
-            try
-            {
-                makeIntervals = Properties.Settings.Default.makeIntervals;
-                chkMakeInterval.Checked = makeIntervals;
-            }
-            catch
-            {
-                Console.WriteLine("makeIntervals configuration not found.");
-            }
+        private void frmMain_Update()
+        {
+            // put the values of playlist in the form's component
+            grpActs_Update();
 
-            try
-            {
-                useSameInterval = Properties.Settings.Default.useSameInterval;
-                chkUseSameInterval.Checked = useSameInterval;
-            }
-            catch
-            {
-                Console.WriteLine("useSameInterval configuration not found.");
-            }
+            txtActsQuantity.Text = playlist.actsQuantity != -1 ? playlist.actsQuantity.ToString() : "";
 
-            try
-            {
-                intervalsFolder = Properties.Settings.Default.intervalsFolder;
-                txtIntervalsFolder.Text = intervalsFolder;
-            }
-            catch
-            {
-                Console.WriteLine("intervalsFolder configuration not found.");
-            }
+            txtActsLength.Text = playlist.actsLength != -1 ? playlist.actsLength.ToString() : "";
 
-            // Load genres
-            try
+            chkInterludesUsage.Checked = playlist.interludesUsage;
+
+            txtInterludesPath.Text = playlist.interludesPath != "" ? playlist.interludesPath : "Ubicación de las cortinas...";
+
+            chkInterludesUsageSame.Checked = playlist.interludeUsageSame;
+
+            btnGeneratePlaylist_Update();
+        }
+        
+        private void btnHelp_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start(Properties.Settings.Default.helpURL);
+        }
+
+        // grpActs
+
+        private void btnActsAdd_Click(object sender, EventArgs e)
+        {
+            DialogResult result = dlgActs.ShowDialog();
+            if (result == DialogResult.OK)
             {
-                if (Properties.Settings.Default.genres != null)
+                playlist.acts.Add(new Act(dlgActs.SelectedPath));
+                grpActs_Update();
+            }
+        }
+
+        private void btnActsDelete_Click(object sender, EventArgs e)
+        {
+            int indexToDelete = cmbActsAdded.SelectedIndex;
+
+            // if there is something selected
+            if (indexToDelete != -1)
+            {
+                playlist.acts.RemoveAt(indexToDelete);
+                grpActs_Update();
+            }
+        }
+
+        private void grpActs_Update()
+        {
+            bool cmbActsAddedIsEmpty = playlist.acts.Count == 0;
+
+            cmbActsAdded.Enabled = !cmbActsAddedIsEmpty;
+            btnActsDelete.Enabled = !cmbActsAddedIsEmpty;
+
+            cmbActsAdded.Items.Clear();
+            if (!cmbActsAddedIsEmpty)
+            {
+                foreach (Act x in playlist.acts)
                 {
-                    foreach (string genrePath in Properties.Settings.Default.genres)
-                    {
-                        genres.Add(new Genre(genrePath));
-                    }
-                    updateGenresComboBox();
+                    cmbActsAdded.Items.Add(x.name);
                 }
             }
-            catch
-            {
-                Console.WriteLine("genres configuration not found.");
-            }
+
+            cmbActsAdded.SelectedIndex = cmbActsAddedIsEmpty ? -1 : 0;
+            lblActsAddedTotal.Text = $"Total: {playlist.acts.Count}";
+
+            btnGeneratePlaylist_Update();
         }
 
-        private void btnSaveConfiguration_Click(object sender, EventArgs e)
+        private void txtActsQuantity_TextChanged(object sender, EventArgs e)
         {
-            DialogResult confirmation = MessageBox.Show(
-                   "¿Desea guardar la configuración?",
-                   "Confirmación",
-                   MessageBoxButtons.YesNo,
-                   MessageBoxIcon.Question,
-                   MessageBoxDefaultButton.Button2);
-
-            if (confirmation == DialogResult.Yes)
+            try
             {
-                Properties.Settings.Default.genreSongQuantity = genreSongQuantity;
-                Properties.Settings.Default.makeIntervals = makeIntervals;
-                Properties.Settings.Default.useSameInterval = useSameInterval;
-                Properties.Settings.Default.intervalsFolder = intervalsFolder;
+                playlist.actsQuantity = Int32.Parse(txtActsQuantity.Text);
+                txtActsQuantity.ForeColor = System.Drawing.SystemColors.WindowText;
+            }
+            catch (Exception err)
+            {
+                txtActsQuantity.ForeColor = System.Drawing.Color.Red;
+                playlist.actsQuantity = -1;
+            }
 
-                ArrayList aux = new ArrayList();
-                foreach (Genre g in genres)
+            btnGeneratePlaylist_Update();
+        }
+
+        private void txtActsLength_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                playlist.actsLength = Int32.Parse(txtActsLength.Text);
+                txtActsLength.ForeColor = System.Drawing.SystemColors.WindowText;
+            }
+            catch (Exception err)
+            {
+                txtActsLength.ForeColor = System.Drawing.Color.Red;
+                playlist.actsLength = -1;
+            }
+
+            btnGeneratePlaylist_Update();
+        }
+
+        // grpInterludes
+
+        private void chkInterludesUsage_CheckedChanged(object sender, EventArgs e)
+        {
+            playlist.interludesUsage = chkInterludesUsage.Checked;
+            
+            btnInterludesPathSearch.Enabled = playlist.interludesUsage;
+            chkInterludesUsageSame.Enabled = playlist.interludesUsage;
+
+            btnGeneratePlaylist_Update();
+        }
+
+        private void chkInterludesUsageSame_CheckedChanged(object sender, EventArgs e)
+        {
+            playlist.interludeUsageSame = chkInterludesUsageSame.Checked;
+        }
+
+        private void btnInterludesPathSearch_Click(object sender, EventArgs e)
+        {
+            DialogResult result = dlgInterludes.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                playlist.interludesPath = dlgInterludes.SelectedPath;
+                txtInterludesPath.Text = playlist.interludesPath;
+            }
+
+            btnGeneratePlaylist_Update();
+        }
+
+        private void grpInterludes_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (playlist.interludesPath != "" && grpInterludes.GetChildAtPoint(e.Location) == txtInterludesPath)
+            {
+                if (!isTipInterludePathShowing)
                 {
-                    aux.Add(g.path);
-                }
-                Properties.Settings.Default.genres = aux;
-
-                Properties.Settings.Default.Save();
-                Console.WriteLine("genres configuration saved.");
-            }
-        }
-
-        private void txtGenreSongQuatity_TextChanged(object sender, EventArgs e)
-        {
-            if (!string.IsNullOrEmpty(txtGenreSongQuatity.Text))
-            {
-                genreSongQuantity = int.Parse(txtGenreSongQuatity.Text);
-            }
-        }
-
-        private void chkMakeInterval_CheckedChanged(object sender, EventArgs e)
-        {
-            makeIntervals = chkMakeInterval.Checked;
-            btnIntervalsFolder.Enabled = chkMakeInterval.Checked;
-            chkUseSameInterval.Enabled = chkMakeInterval.Checked;
-        }
-
-        private void chkUseSameInterval_CheckedChanged(object sender, EventArgs e)
-        {
-            useSameInterval = chkUseSameInterval.Checked;
-        }
-
-        private void txtIntervalsFolder_TextChanged(object sender, EventArgs e)
-        {
-            intervalsFolder = txtIntervalsFolder.Text;
-        }
-
-        private void cmbGenres_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            // Add new one
-            if (cmbGenres.SelectedItem.ToString() == "Agregar nuevo...")
-            {
-                btnGenreRemove.Visible = false;
-
-                DialogResult result = dlgFolder.ShowDialog();
-                if (result == DialogResult.OK)
-                {
-                    genres.Add(new Genre(dlgFolder.SelectedPath));
-                    updateGenresComboBox();
+                    tipInterludePath.Show(txtInterludesPath.Text, grpInterludes, e.Location);
+                    isTipInterludePathShowing = true;
                 }
             }
             else
             {
-                btnGenreRemove.Visible = true;
+                tipInterludePath.Hide(grpInterludes);
+                isTipInterludePathShowing = false;
             }
         }
 
-        private void btnGenreRemove_Click(object sender, EventArgs e)
-        {
-            int index = genres.FindIndex(x => x.name == cmbGenres.SelectedItem.ToString());
-            genres.RemoveAt(index);
-            updateGenresComboBox();
-        }
+        // grpSettings
 
-        private void btnIntervalsFolder_Click(object sender, EventArgs e)
+        private void btnWriteSettings_Click(object sender, EventArgs e)
         {
-            DialogResult result = dlgFolder.ShowDialog();
+            DialogResult result = dlgWriteSettings.ShowDialog();
             if (result == DialogResult.OK)
             {
-                intervalsFolder = dlgFolder.SelectedPath;
-                txtIntervalsFolder.Text = intervalsFolder;
+                playlist.writeSettingsFile(dlgWriteSettings.FileName);
             }
         }
 
-        private void txtGenreSongQuatity_KeyPress(object sender, KeyPressEventArgs e)
+        private void btnReadSettings_Click(object sender, EventArgs e)
         {
-            // only numbers
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
-            {
-                e.Handled = true;
-            }
-        }
-
-        private void btnGenerar_Click(object sender, EventArgs e)
-        {
-            if (!validate())
-            {
-                return;
-            }
-
-            DialogResult result = dlgFolder.ShowDialog();
+            DialogResult result = dlgReadSettings.ShowDialog();
             if (result == DialogResult.OK)
             {
-                string path = dlgFolder.SelectedPath;
-                string content = "";
+                playlist.readSettingsFile(dlgReadSettings.FileName);
 
-                if (Directory.GetFiles(intervalsFolder).Length < genres.Count - 1)
+                // update the form
+                frmMain_Update();
+            }
+        }
+
+        private void btnGeneratePlaylist_Update()
+        {
+            btnGeneratePlaylist.Enabled = playlist.validate();
+        }
+
+        private void btnGeneratePlaylist_Click(object sender, EventArgs e)
+        {
+            List<string> errors = playlist.getErrorMessages();
+
+            // if there is no element in errors, then everything is OK
+            if (errors.Count == 0)
+            {
+                dlgPlaylist.FileName = createDefaultFileName("playlist");
+
+                DialogResult result = dlgPlaylist.ShowDialog();
+                if (result == DialogResult.OK)
                 {
-                    DialogResult confirmation = MessageBox.Show(
-                        "La carpeta seleccionada de intervalos no posee la cantidad de canciones necesarias.\n¿Desea que se repitan?",
-                        "Confirmación",
-                        MessageBoxButtons.YesNo,
-                        MessageBoxIcon.Warning,
-                        MessageBoxDefaultButton.Button2);
-                    if (confirmation != DialogResult.Yes)
+                    try
                     {
-                        return;
+                        playlist.generate(dlgPlaylist.FileName);
+
+                        MessageBox.Show(
+                            "Se ha creado la playlist de manera exitosa",
+                            "Milonga Generator",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information);
+                    }
+                    catch (Exception err)
+                    {
+                        MessageBox.Show(
+                            err.Message,
+                            "Error",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
                     }
                 }
-
-                List<string> intervalsSorted = getFilesSorted(intervalsFolder);
-                List<Genre> genresSorted = getGenreSorted();
-                string aux;
-
-                foreach (Genre g in genresSorted)
-                {
-                    List<string> filesSorted = getFilesSorted(g.path);
-
-                    content += (!string.IsNullOrWhiteSpace(content) ? "\n\n" : "") + "# Genre " + g.name;
-                    Console.WriteLine("# Genre " + g.name);
-
-                    for (int i = 0; i < genreSongQuantity; i++)
-                    {
-                        if (filesSorted.Count == 0)
-                        {
-                            filesSorted = getFilesSorted(g.path);
-                        }
-
-                        aux = filesSorted.ElementAt(0);
-                        content += "\n" + aux;
-                        Console.WriteLine(aux);
-                        filesSorted.RemoveAt(0);
-                    }
-
-                    if (makeIntervals && g != genresSorted.Last())
-                    {
-                        if (intervalsSorted.Count == 0)
-                        {
-                            intervalsSorted = getFilesSorted(intervalsFolder);
-                        }
-
-                        aux = intervalsSorted.ElementAt(0);
-                        content += "\n\n# Interval\n" + aux;
-                        Console.WriteLine(aux);
-                        if (!useSameInterval)
-                        {
-                            intervalsSorted.RemoveAt(0);
-                        }
-                    }
-                }
-
-                saveFile(path, content);
             }
-
-        }
-
-        private void updateGenresComboBox()
-        {
-            cmbGenres.Items.Clear();
-            cmbGenres.Items.Add("Agregar nuevo...");
-            foreach (Genre g in genres)
+            else
             {
-                cmbGenres.Items.Add(g.name);
+                showErrorMessages(errors);
             }
-            cmbGenres.Text = "";
-
-            Console.WriteLine("Genres update: " + genres.Count());
         }
 
-        private bool validate()
+        private void showErrorMessages(List<string> errors)
         {
-            bool canGenerate = true;
+            string messageBody = errors.Count == 1 ?
+                    "Se ha encontrado el siguiente error al previzualizar la playlist:" :
+                    "Se han encontrado los siguientes errores al previzualizar la playlist:";
 
-            canGenerate &= genres.Count >= 2;
-            canGenerate &= genreSongQuantity >= 1;
-            canGenerate &= !makeIntervals || !string.IsNullOrEmpty(txtIntervalsFolder.Text);
-
-            Console.WriteLine("validate: " + canGenerate.ToString());
-            return canGenerate;
-        }
-
-        private void saveFile(string _where, string _content)
-        {
-            string playlistName = "Playlist_" + DateTime.Now.Year.ToString() + "_"
-                + DateTime.Now.Month.ToString() + "_" + DateTime.Now.Day.ToString() + "_"
-                + DateTime.Now.Hour.ToString() + "_" + DateTime.Now.Minute.ToString() + "_"
-                + DateTime.Now.Second.ToString() + ".m3u";
-            string path = _where + "/" + playlistName;
-
-            File.WriteAllText(path, _content);
-        }
-
-        private List<string> getFilesSorted(string _path)
-        {
-            string[] files = Directory.GetFiles(_path);
-            List<string> list = new List<string>(files);
-            var random = new Random();
-            int n = list.Count;
-            while (n > 1)
+            foreach (string msg in errors)
             {
-                n--;
-                int k = random.Next(n + 1);
-                string aux = list[k];
-                list[k] = list[n];
-                list[n] = aux;
+                messageBody += $"\n- {msg}";
             }
-            return list;
+
+            MessageBox.Show(
+                messageBody,
+                "Error",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Error);
         }
 
-        private List<Genre> getGenreSorted()
+        private string createDefaultFileName(string header)
         {
-            List<Genre> list = new List<Genre>(genres);
-            var random = new Random();
-            int n = list.Count;
-            while (n > 1)
-            {
-                n--;
-                int k = random.Next(n + 1);
-                Genre aux = list[k];
-                list[k] = list[n];
-                list[n] = aux;
-            }
-            return list;
+            // make the file's name contain when it was created
+            
+            DateTime now = DateTime.Now;
+            
+            string filename = $"{header}_{now.Year}_{now.Month}_{now.Day}";
+            filename += $"_{now.Hour}_{now.Minute}_{now.Second}";
+
+            return filename;
         }
     }
 }

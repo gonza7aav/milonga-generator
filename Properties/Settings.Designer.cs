@@ -8,11 +8,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace serendipia_playlist_generator.Properties {
+namespace milonga_generator.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.8.1.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.10.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -23,62 +23,12 @@ namespace serendipia_playlist_generator.Properties {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("3")]
-        public int genreSongQuantity {
+        [global::System.Configuration.DefaultSettingValueAttribute("https://github.com/gonza7aav/milonga-generator/")]
+        public string helpURL {
             get {
-                return ((int)(this["genreSongQuantity"]));
-            }
-            set {
-                this["genreSongQuantity"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool makeIntervals {
-            get {
-                return ((bool)(this["makeIntervals"]));
-            }
-            set {
-                this["makeIntervals"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::System.Collections.ArrayList genres {
-            get {
-                return ((global::System.Collections.ArrayList)(this["genres"]));
-            }
-            set {
-                this["genres"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool useSameInterval {
-            get {
-                return ((bool)(this["useSameInterval"]));
-            }
-            set {
-                this["useSameInterval"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string intervalsFolder {
-            get {
-                return ((string)(this["intervalsFolder"]));
-            }
-            set {
-                this["intervalsFolder"] = value;
+                return ((string)(this["helpURL"]));
             }
         }
     }

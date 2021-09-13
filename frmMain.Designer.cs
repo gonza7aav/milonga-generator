@@ -1,5 +1,5 @@
 ﻿
-namespace serendipia_playlist_generator
+namespace milonga_generator
 {
     partial class frmMain
     {
@@ -29,196 +29,355 @@ namespace serendipia_playlist_generator
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
-            this.btnGenerar = new System.Windows.Forms.Button();
-            this.txtGenreSongQuatity = new System.Windows.Forms.TextBox();
-            this.chkMakeInterval = new System.Windows.Forms.CheckBox();
-            this.btnSaveConfiguration = new System.Windows.Forms.Button();
-            this.chkUseSameInterval = new System.Windows.Forms.CheckBox();
-            this.cmbGenres = new System.Windows.Forms.ComboBox();
-            this.btnGenreRemove = new System.Windows.Forms.Button();
-            this.dlgFolder = new System.Windows.Forms.FolderBrowserDialog();
-            this.lblGenreSongQuatity = new System.Windows.Forms.Label();
-            this.lblGenres = new System.Windows.Forms.Label();
-            this.btnIntervalsFolder = new System.Windows.Forms.Button();
-            this.txtIntervalsFolder = new System.Windows.Forms.TextBox();
-            this.lblIntervals = new System.Windows.Forms.Label();
+            this.components = new System.ComponentModel.Container();
+            this.dlgActs = new System.Windows.Forms.FolderBrowserDialog();
+            this.cmbActsAdded = new System.Windows.Forms.ComboBox();
+            this.lblActsQuantity = new System.Windows.Forms.Label();
+            this.txtActsQuantity = new System.Windows.Forms.TextBox();
+            this.lblActsLength = new System.Windows.Forms.Label();
+            this.txtActsLength = new System.Windows.Forms.TextBox();
+            this.btnActsAdd = new System.Windows.Forms.Button();
+            this.btnActsDelete = new System.Windows.Forms.Button();
+            this.chkInterludesUsage = new System.Windows.Forms.CheckBox();
+            this.txtInterludesPath = new System.Windows.Forms.TextBox();
+            this.btnInterludesPathSearch = new System.Windows.Forms.Button();
+            this.grpActs = new System.Windows.Forms.GroupBox();
+            this.lblActsAddedTotal = new System.Windows.Forms.Label();
+            this.grpInterludes = new System.Windows.Forms.GroupBox();
+            this.chkInterludesUsageSame = new System.Windows.Forms.CheckBox();
+            this.dlgInterludes = new System.Windows.Forms.FolderBrowserDialog();
+            this.btnGeneratePlaylist = new System.Windows.Forms.Button();
+            this.grpSettings = new System.Windows.Forms.GroupBox();
+            this.btnReadSettings = new System.Windows.Forms.Button();
+            this.btnWriteSettings = new System.Windows.Forms.Button();
+            this.dlgWriteSettings = new System.Windows.Forms.SaveFileDialog();
+            this.dlgReadSettings = new System.Windows.Forms.OpenFileDialog();
+            this.btnHelp = new System.Windows.Forms.Button();
+            this.dlgPlaylist = new System.Windows.Forms.SaveFileDialog();
+            this.tipInterludePath = new System.Windows.Forms.ToolTip(this.components);
+            this.grpActs.SuspendLayout();
+            this.grpInterludes.SuspendLayout();
+            this.grpSettings.SuspendLayout();
             this.SuspendLayout();
             // 
-            // btnGenerar
+            // dlgActs
             // 
-            this.btnGenerar.Location = new System.Drawing.Point(247, 219);
-            this.btnGenerar.Name = "btnGenerar";
-            this.btnGenerar.Size = new System.Drawing.Size(75, 23);
-            this.btnGenerar.TabIndex = 0;
-            this.btnGenerar.Text = "Generar";
-            this.btnGenerar.UseVisualStyleBackColor = true;
-            this.btnGenerar.Click += new System.EventHandler(this.btnGenerar_Click);
+            this.dlgActs.Description = "Agregar la carpeta de una tanda";
+            this.dlgActs.ShowNewFolderButton = false;
             // 
-            // txtGenreSongQuatity
+            // cmbActsAdded
             // 
-            this.txtGenreSongQuatity.Location = new System.Drawing.Point(121, 71);
-            this.txtGenreSongQuatity.Name = "txtGenreSongQuatity";
-            this.txtGenreSongQuatity.Size = new System.Drawing.Size(50, 20);
-            this.txtGenreSongQuatity.TabIndex = 4;
-            this.txtGenreSongQuatity.Text = "3";
-            this.txtGenreSongQuatity.TextChanged += new System.EventHandler(this.txtGenreSongQuatity_TextChanged);
-            this.txtGenreSongQuatity.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtGenreSongQuatity_KeyPress);
+            this.cmbActsAdded.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbActsAdded.Enabled = false;
+            this.cmbActsAdded.Location = new System.Drawing.Point(10, 29);
+            this.cmbActsAdded.Margin = new System.Windows.Forms.Padding(5);
+            this.cmbActsAdded.Name = "cmbActsAdded";
+            this.cmbActsAdded.Size = new System.Drawing.Size(292, 26);
+            this.cmbActsAdded.TabIndex = 3;
             // 
-            // chkMakeInterval
+            // lblActsQuantity
             // 
-            this.chkMakeInterval.AutoSize = true;
-            this.chkMakeInterval.Checked = true;
-            this.chkMakeInterval.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkMakeInterval.Location = new System.Drawing.Point(12, 171);
-            this.chkMakeInterval.Name = "chkMakeInterval";
-            this.chkMakeInterval.Size = new System.Drawing.Size(111, 17);
-            this.chkMakeInterval.TabIndex = 5;
-            this.chkMakeInterval.Text = "Agregar intervalos";
-            this.chkMakeInterval.UseVisualStyleBackColor = true;
-            this.chkMakeInterval.CheckedChanged += new System.EventHandler(this.chkMakeInterval_CheckedChanged);
+            this.lblActsQuantity.AutoSize = true;
+            this.lblActsQuantity.Location = new System.Drawing.Point(10, 103);
+            this.lblActsQuantity.Margin = new System.Windows.Forms.Padding(5);
+            this.lblActsQuantity.Name = "lblActsQuantity";
+            this.lblActsQuantity.Size = new System.Drawing.Size(214, 18);
+            this.lblActsQuantity.TabIndex = 1;
+            this.lblActsQuantity.Text = "Número de tandas por playlist";
             // 
-            // btnSaveConfiguration
+            // txtActsQuantity
             // 
-            this.btnSaveConfiguration.Location = new System.Drawing.Point(12, 219);
-            this.btnSaveConfiguration.Name = "btnSaveConfiguration";
-            this.btnSaveConfiguration.Size = new System.Drawing.Size(159, 23);
-            this.btnSaveConfiguration.TabIndex = 6;
-            this.btnSaveConfiguration.Text = "Guardar Configuración";
-            this.btnSaveConfiguration.UseVisualStyleBackColor = true;
-            this.btnSaveConfiguration.Click += new System.EventHandler(this.btnSaveConfiguration_Click);
+            this.txtActsQuantity.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtActsQuantity.Location = new System.Drawing.Point(242, 101);
+            this.txtActsQuantity.Margin = new System.Windows.Forms.Padding(5);
+            this.txtActsQuantity.Name = "txtActsQuantity";
+            this.txtActsQuantity.Size = new System.Drawing.Size(60, 26);
+            this.txtActsQuantity.TabIndex = 4;
+            this.txtActsQuantity.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtActsQuantity.TextChanged += new System.EventHandler(this.txtActsQuantity_TextChanged);
             // 
-            // chkUseSameInterval
+            // lblActsLength
             // 
-            this.chkUseSameInterval.AutoSize = true;
-            this.chkUseSameInterval.Location = new System.Drawing.Point(188, 171);
-            this.chkUseSameInterval.Name = "chkUseSameInterval";
-            this.chkUseSameInterval.Size = new System.Drawing.Size(134, 17);
-            this.chkUseSameInterval.TabIndex = 7;
-            this.chkUseSameInterval.Text = "Usar el mismo intervalo";
-            this.chkUseSameInterval.UseVisualStyleBackColor = true;
-            this.chkUseSameInterval.CheckedChanged += new System.EventHandler(this.chkUseSameInterval_CheckedChanged);
+            this.lblActsLength.AutoSize = true;
+            this.lblActsLength.Location = new System.Drawing.Point(10, 140);
+            this.lblActsLength.Margin = new System.Windows.Forms.Padding(5);
+            this.lblActsLength.Name = "lblActsLength";
+            this.lblActsLength.Size = new System.Drawing.Size(214, 18);
+            this.lblActsLength.TabIndex = 1;
+            this.lblActsLength.Text = "Cantidad de piezas por tanda";
             // 
-            // cmbGenres
+            // txtActsLength
             // 
-            this.cmbGenres.FormattingEnabled = true;
-            this.cmbGenres.Items.AddRange(new object[] {
-            "Agregar nuevo..."});
-            this.cmbGenres.Location = new System.Drawing.Point(12, 25);
-            this.cmbGenres.Name = "cmbGenres";
-            this.cmbGenres.Size = new System.Drawing.Size(229, 21);
-            this.cmbGenres.TabIndex = 8;
-            this.cmbGenres.SelectedIndexChanged += new System.EventHandler(this.cmbGenres_SelectedIndexChanged);
+            this.txtActsLength.Location = new System.Drawing.Point(242, 137);
+            this.txtActsLength.Margin = new System.Windows.Forms.Padding(5);
+            this.txtActsLength.Name = "txtActsLength";
+            this.txtActsLength.Size = new System.Drawing.Size(60, 26);
+            this.txtActsLength.TabIndex = 5;
+            this.txtActsLength.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtActsLength.TextChanged += new System.EventHandler(this.txtActsLength_TextChanged);
             // 
-            // btnGenreRemove
+            // btnActsAdd
             // 
-            this.btnGenreRemove.Location = new System.Drawing.Point(247, 25);
-            this.btnGenreRemove.Name = "btnGenreRemove";
-            this.btnGenreRemove.Size = new System.Drawing.Size(75, 23);
-            this.btnGenreRemove.TabIndex = 9;
-            this.btnGenreRemove.Text = "Borrar";
-            this.btnGenreRemove.UseVisualStyleBackColor = true;
-            this.btnGenreRemove.Visible = false;
-            this.btnGenreRemove.Click += new System.EventHandler(this.btnGenreRemove_Click);
+            this.btnActsAdd.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnActsAdd.Location = new System.Drawing.Point(242, 65);
+            this.btnActsAdd.Margin = new System.Windows.Forms.Padding(5);
+            this.btnActsAdd.Name = "btnActsAdd";
+            this.btnActsAdd.Size = new System.Drawing.Size(60, 26);
+            this.btnActsAdd.TabIndex = 1;
+            this.btnActsAdd.Text = "Añadir";
+            this.btnActsAdd.UseVisualStyleBackColor = true;
+            this.btnActsAdd.Click += new System.EventHandler(this.btnActsAdd_Click);
             // 
-            // dlgFolder
+            // btnActsDelete
             // 
-            this.dlgFolder.Description = "Agregar nuevo";
+            this.btnActsDelete.Enabled = false;
+            this.btnActsDelete.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnActsDelete.Location = new System.Drawing.Point(172, 65);
+            this.btnActsDelete.Margin = new System.Windows.Forms.Padding(5);
+            this.btnActsDelete.Name = "btnActsDelete";
+            this.btnActsDelete.Size = new System.Drawing.Size(60, 26);
+            this.btnActsDelete.TabIndex = 2;
+            this.btnActsDelete.Text = "Quitar";
+            this.btnActsDelete.UseVisualStyleBackColor = true;
+            this.btnActsDelete.Click += new System.EventHandler(this.btnActsDelete_Click);
             // 
-            // lblGenreSongQuatity
+            // chkInterludesUsage
             // 
-            this.lblGenreSongQuatity.AutoSize = true;
-            this.lblGenreSongQuatity.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblGenreSongQuatity.Location = new System.Drawing.Point(9, 74);
-            this.lblGenreSongQuatity.Name = "lblGenreSongQuatity";
-            this.lblGenreSongQuatity.Size = new System.Drawing.Size(106, 13);
-            this.lblGenreSongQuatity.TabIndex = 10;
-            this.lblGenreSongQuatity.Text = "Cantidad por carpeta";
+            this.chkInterludesUsage.AutoSize = true;
+            this.chkInterludesUsage.Checked = true;
+            this.chkInterludesUsage.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkInterludesUsage.Location = new System.Drawing.Point(10, 29);
+            this.chkInterludesUsage.Margin = new System.Windows.Forms.Padding(5);
+            this.chkInterludesUsage.Name = "chkInterludesUsage";
+            this.chkInterludesUsage.Size = new System.Drawing.Size(133, 22);
+            this.chkInterludesUsage.TabIndex = 6;
+            this.chkInterludesUsage.Text = "Utilizar cortinas";
+            this.chkInterludesUsage.UseVisualStyleBackColor = true;
+            this.chkInterludesUsage.CheckedChanged += new System.EventHandler(this.chkInterludesUsage_CheckedChanged);
             // 
-            // lblGenres
+            // txtInterludesPath
             // 
-            this.lblGenres.AutoSize = true;
-            this.lblGenres.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblGenres.Location = new System.Drawing.Point(9, 9);
-            this.lblGenres.Name = "lblGenres";
-            this.lblGenres.Size = new System.Drawing.Size(49, 13);
-            this.lblGenres.TabIndex = 12;
-            this.lblGenres.Text = "Carpetas";
+            this.txtInterludesPath.Enabled = false;
+            this.txtInterludesPath.Location = new System.Drawing.Point(11, 88);
+            this.txtInterludesPath.Margin = new System.Windows.Forms.Padding(5);
+            this.txtInterludesPath.Name = "txtInterludesPath";
+            this.txtInterludesPath.Size = new System.Drawing.Size(222, 26);
+            this.txtInterludesPath.TabIndex = 1;
+            this.txtInterludesPath.TabStop = false;
+            this.txtInterludesPath.Text = "Ubicación de las cortinas...";
             // 
-            // btnIntervalsFolder
+            // btnInterludesPathSearch
             // 
-            this.btnIntervalsFolder.Location = new System.Drawing.Point(247, 145);
-            this.btnIntervalsFolder.Name = "btnIntervalsFolder";
-            this.btnIntervalsFolder.Size = new System.Drawing.Size(75, 23);
-            this.btnIntervalsFolder.TabIndex = 13;
-            this.btnIntervalsFolder.Text = "Buscar";
-            this.btnIntervalsFolder.UseVisualStyleBackColor = true;
-            this.btnIntervalsFolder.Click += new System.EventHandler(this.btnIntervalsFolder_Click);
+            this.btnInterludesPathSearch.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnInterludesPathSearch.Location = new System.Drawing.Point(243, 88);
+            this.btnInterludesPathSearch.Margin = new System.Windows.Forms.Padding(5);
+            this.btnInterludesPathSearch.Name = "btnInterludesPathSearch";
+            this.btnInterludesPathSearch.Size = new System.Drawing.Size(60, 26);
+            this.btnInterludesPathSearch.TabIndex = 8;
+            this.btnInterludesPathSearch.Text = "Buscar";
+            this.btnInterludesPathSearch.UseVisualStyleBackColor = true;
+            this.btnInterludesPathSearch.Click += new System.EventHandler(this.btnInterludesPathSearch_Click);
             // 
-            // txtIntervalsFolder
+            // grpActs
             // 
-            this.txtIntervalsFolder.Enabled = false;
-            this.txtIntervalsFolder.Location = new System.Drawing.Point(12, 145);
-            this.txtIntervalsFolder.Name = "txtIntervalsFolder";
-            this.txtIntervalsFolder.Size = new System.Drawing.Size(229, 20);
-            this.txtIntervalsFolder.TabIndex = 14;
-            this.txtIntervalsFolder.TextChanged += new System.EventHandler(this.txtIntervalsFolder_TextChanged);
+            this.grpActs.Controls.Add(this.lblActsAddedTotal);
+            this.grpActs.Controls.Add(this.cmbActsAdded);
+            this.grpActs.Controls.Add(this.btnActsDelete);
+            this.grpActs.Controls.Add(this.btnActsAdd);
+            this.grpActs.Controls.Add(this.txtActsLength);
+            this.grpActs.Controls.Add(this.lblActsQuantity);
+            this.grpActs.Controls.Add(this.lblActsLength);
+            this.grpActs.Controls.Add(this.txtActsQuantity);
+            this.grpActs.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.grpActs.Location = new System.Drawing.Point(10, 10);
+            this.grpActs.Margin = new System.Windows.Forms.Padding(5);
+            this.grpActs.Name = "grpActs";
+            this.grpActs.Padding = new System.Windows.Forms.Padding(5);
+            this.grpActs.Size = new System.Drawing.Size(312, 173);
+            this.grpActs.TabIndex = 0;
+            this.grpActs.TabStop = false;
+            this.grpActs.Text = "Tandas";
             // 
-            // lblIntervals
+            // lblActsAddedTotal
             // 
-            this.lblIntervals.AutoSize = true;
-            this.lblIntervals.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblIntervals.Location = new System.Drawing.Point(9, 129);
-            this.lblIntervals.Name = "lblIntervals";
-            this.lblIntervals.Size = new System.Drawing.Size(134, 13);
-            this.lblIntervals.TabIndex = 15;
-            this.lblIntervals.Text = "Ubicación de los intervalos";
+            this.lblActsAddedTotal.AutoSize = true;
+            this.lblActsAddedTotal.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblActsAddedTotal.Location = new System.Drawing.Point(10, 70);
+            this.lblActsAddedTotal.Margin = new System.Windows.Forms.Padding(5);
+            this.lblActsAddedTotal.Name = "lblActsAddedTotal";
+            this.lblActsAddedTotal.Size = new System.Drawing.Size(50, 16);
+            this.lblActsAddedTotal.TabIndex = 1;
+            this.lblActsAddedTotal.Text = "Total: 0";
+            // 
+            // grpInterludes
+            // 
+            this.grpInterludes.Controls.Add(this.txtInterludesPath);
+            this.grpInterludes.Controls.Add(this.chkInterludesUsageSame);
+            this.grpInterludes.Controls.Add(this.chkInterludesUsage);
+            this.grpInterludes.Controls.Add(this.btnInterludesPathSearch);
+            this.grpInterludes.Location = new System.Drawing.Point(10, 193);
+            this.grpInterludes.Margin = new System.Windows.Forms.Padding(5);
+            this.grpInterludes.Name = "grpInterludes";
+            this.grpInterludes.Padding = new System.Windows.Forms.Padding(5);
+            this.grpInterludes.Size = new System.Drawing.Size(314, 133);
+            this.grpInterludes.TabIndex = 1;
+            this.grpInterludes.TabStop = false;
+            this.grpInterludes.Text = "Cortinas";
+            // 
+            // chkInterludesUsageSame
+            // 
+            this.chkInterludesUsageSame.AutoSize = true;
+            this.chkInterludesUsageSame.Checked = true;
+            this.chkInterludesUsageSame.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkInterludesUsageSame.Location = new System.Drawing.Point(10, 56);
+            this.chkInterludesUsageSame.Margin = new System.Windows.Forms.Padding(5, 0, 5, 5);
+            this.chkInterludesUsageSame.Name = "chkInterludesUsageSame";
+            this.chkInterludesUsageSame.Size = new System.Drawing.Size(239, 22);
+            this.chkInterludesUsageSame.TabIndex = 7;
+            this.chkInterludesUsageSame.Text = "Usar siempre la misma cortina";
+            this.chkInterludesUsageSame.UseVisualStyleBackColor = true;
+            this.chkInterludesUsageSame.CheckedChanged += new System.EventHandler(this.chkInterludesUsageSame_CheckedChanged);
+            // 
+            // dlgInterludes
+            // 
+            this.dlgInterludes.Description = "Agregar la carpeta de cortinas";
+            this.dlgInterludes.ShowNewFolderButton = false;
+            // 
+            // btnGeneratePlaylist
+            // 
+            this.btnGeneratePlaylist.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnGeneratePlaylist.Enabled = false;
+            this.btnGeneratePlaylist.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnGeneratePlaylist.Location = new System.Drawing.Point(154, 416);
+            this.btnGeneratePlaylist.Margin = new System.Windows.Forms.Padding(0, 5, 25, 0);
+            this.btnGeneratePlaylist.Name = "btnGeneratePlaylist";
+            this.btnGeneratePlaylist.Size = new System.Drawing.Size(150, 25);
+            this.btnGeneratePlaylist.TabIndex = 13;
+            this.btnGeneratePlaylist.Text = "Generar Playlist";
+            this.btnGeneratePlaylist.UseVisualStyleBackColor = true;
+            this.btnGeneratePlaylist.Click += new System.EventHandler(this.btnGeneratePlaylist_Click);
+            // 
+            // grpSettings
+            // 
+            this.grpSettings.Controls.Add(this.btnReadSettings);
+            this.grpSettings.Controls.Add(this.btnWriteSettings);
+            this.grpSettings.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.grpSettings.Location = new System.Drawing.Point(10, 336);
+            this.grpSettings.Margin = new System.Windows.Forms.Padding(5);
+            this.grpSettings.Name = "grpSettings";
+            this.grpSettings.Padding = new System.Windows.Forms.Padding(5);
+            this.grpSettings.Size = new System.Drawing.Size(314, 70);
+            this.grpSettings.TabIndex = 2;
+            this.grpSettings.TabStop = false;
+            this.grpSettings.Text = "Configuración";
+            // 
+            // btnReadSettings
+            // 
+            this.btnReadSettings.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnReadSettings.Location = new System.Drawing.Point(184, 29);
+            this.btnReadSettings.Margin = new System.Windows.Forms.Padding(25, 5, 25, 5);
+            this.btnReadSettings.Name = "btnReadSettings";
+            this.btnReadSettings.Size = new System.Drawing.Size(100, 26);
+            this.btnReadSettings.TabIndex = 10;
+            this.btnReadSettings.Text = "Cargar";
+            this.btnReadSettings.UseVisualStyleBackColor = true;
+            this.btnReadSettings.Click += new System.EventHandler(this.btnReadSettings_Click);
+            // 
+            // btnWriteSettings
+            // 
+            this.btnWriteSettings.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnWriteSettings.Location = new System.Drawing.Point(30, 29);
+            this.btnWriteSettings.Margin = new System.Windows.Forms.Padding(25, 5, 25, 5);
+            this.btnWriteSettings.Name = "btnWriteSettings";
+            this.btnWriteSettings.Size = new System.Drawing.Size(100, 26);
+            this.btnWriteSettings.TabIndex = 9;
+            this.btnWriteSettings.Text = "Guardar";
+            this.btnWriteSettings.UseVisualStyleBackColor = true;
+            this.btnWriteSettings.Click += new System.EventHandler(this.btnWriteSettings_Click);
+            // 
+            // dlgWriteSettings
+            // 
+            this.dlgWriteSettings.DefaultExt = "config";
+            this.dlgWriteSettings.FileName = "milonga-generator";
+            this.dlgWriteSettings.Title = "Guardar archivo de configuración";
+            // 
+            // dlgReadSettings
+            // 
+            this.dlgReadSettings.DefaultExt = "config";
+            this.dlgReadSettings.Title = "Cargar archivo de configuración";
+            // 
+            // btnHelp
+            // 
+            this.btnHelp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnHelp.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnHelp.Location = new System.Drawing.Point(30, 416);
+            this.btnHelp.Margin = new System.Windows.Forms.Padding(25, 5, 0, 0);
+            this.btnHelp.Name = "btnHelp";
+            this.btnHelp.Size = new System.Drawing.Size(100, 25);
+            this.btnHelp.TabIndex = 14;
+            this.btnHelp.Text = "Ayuda";
+            this.btnHelp.UseVisualStyleBackColor = true;
+            this.btnHelp.Click += new System.EventHandler(this.btnHelp_Click);
+            // 
+            // dlgPlaylist
+            // 
+            this.dlgPlaylist.DefaultExt = "m3u";
+            this.dlgPlaylist.FileName = "playlist";
+            this.dlgPlaylist.Title = "Guardar playlist generada";
             // 
             // frmMain
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(334, 261);
-            this.Controls.Add(this.lblIntervals);
-            this.Controls.Add(this.txtIntervalsFolder);
-            this.Controls.Add(this.btnIntervalsFolder);
-            this.Controls.Add(this.lblGenres);
-            this.Controls.Add(this.lblGenreSongQuatity);
-            this.Controls.Add(this.btnGenreRemove);
-            this.Controls.Add(this.cmbGenres);
-            this.Controls.Add(this.chkUseSameInterval);
-            this.Controls.Add(this.btnSaveConfiguration);
-            this.Controls.Add(this.chkMakeInterval);
-            this.Controls.Add(this.txtGenreSongQuatity);
-            this.Controls.Add(this.btnGenerar);
+            this.ClientSize = new System.Drawing.Size(334, 451);
+            this.Controls.Add(this.btnHelp);
+            this.Controls.Add(this.btnGeneratePlaylist);
+            this.Controls.Add(this.grpSettings);
+            this.Controls.Add(this.grpInterludes);
+            this.Controls.Add(this.grpActs);
+            this.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.KeyPreview = true;
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.Name = "frmMain";
-            this.ShowIcon = false;
-            this.Text = "Serendipia Playlist Generator";
+            this.Padding = new System.Windows.Forms.Padding(5);
+            this.Text = "Milonga Generator";
             this.Load += new System.EventHandler(this.frmMain_Load);
+            this.grpActs.ResumeLayout(false);
+            this.grpActs.PerformLayout();
+            this.grpInterludes.ResumeLayout(false);
+            this.grpInterludes.PerformLayout();
+            this.grpSettings.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Button btnGenerar;
-        private System.Windows.Forms.TextBox txtGenreSongQuatity;
-        private System.Windows.Forms.CheckBox chkMakeInterval;
-        private System.Windows.Forms.Button btnSaveConfiguration;
-        private System.Windows.Forms.CheckBox chkUseSameInterval;
-        private System.Windows.Forms.ComboBox cmbGenres;
-        private System.Windows.Forms.Button btnGenreRemove;
-        private System.Windows.Forms.FolderBrowserDialog dlgFolder;
-        private System.Windows.Forms.Label lblGenreSongQuatity;
-        private System.Windows.Forms.Label lblGenres;
-        private System.Windows.Forms.Button btnIntervalsFolder;
-        private System.Windows.Forms.TextBox txtIntervalsFolder;
-        private System.Windows.Forms.Label lblIntervals;
+        private System.Windows.Forms.FolderBrowserDialog dlgActs;
+        private System.Windows.Forms.ComboBox cmbActsAdded;
+        private System.Windows.Forms.Button btnActsDelete;
+        private System.Windows.Forms.Button btnActsAdd;
+        private System.Windows.Forms.Label lblActsQuantity;
+        private System.Windows.Forms.TextBox txtActsQuantity;
+        private System.Windows.Forms.Label lblActsLength;
+        private System.Windows.Forms.TextBox txtActsLength;
+        private System.Windows.Forms.Button btnInterludesPathSearch;
+        private System.Windows.Forms.TextBox txtInterludesPath;
+        private System.Windows.Forms.CheckBox chkInterludesUsage;
+        private System.Windows.Forms.GroupBox grpActs;
+        private System.Windows.Forms.GroupBox grpInterludes;
+        private System.Windows.Forms.FolderBrowserDialog dlgInterludes;
+        private System.Windows.Forms.CheckBox chkInterludesUsageSame;
+        private System.Windows.Forms.Button btnGeneratePlaylist;
+        private System.Windows.Forms.Label lblActsAddedTotal;
+        private System.Windows.Forms.GroupBox grpSettings;
+        private System.Windows.Forms.Button btnWriteSettings;
+        private System.Windows.Forms.Button btnReadSettings;
+        private System.Windows.Forms.SaveFileDialog dlgWriteSettings;
+        private System.Windows.Forms.OpenFileDialog dlgReadSettings;
+        private System.Windows.Forms.Button btnHelp;
+        private System.Windows.Forms.SaveFileDialog dlgPlaylist;
+        private System.Windows.Forms.ToolTip tipInterludePath;
     }
 }
 

@@ -1,21 +1,9 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="serendipia_playlist_generator.Properties" GeneratedClassName="Settings">
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="milonga_generator.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="genreSongQuantity" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">3</Value>
-    </Setting>
-    <Setting Name="makeIntervals" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
-    </Setting>
-    <Setting Name="genres" Type="System.Collections.ArrayList" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="useSameInterval" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
-    </Setting>
-    <Setting Name="intervalsFolder" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+    <Setting Name="helpURL" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">https://github.com/gonza7aav/milonga-generator/</Value>
     </Setting>
   </Settings>
 </SettingsFile>

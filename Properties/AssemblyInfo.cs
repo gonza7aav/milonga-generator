@@ -1,15 +1,16 @@
 ﻿using System.Resources;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Serendipia Playlist Generator")]
+[assembly: AssemblyTitle("Milonga Generator")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("@gonza7aav")]
-[assembly: AssemblyProduct("Playlist Generator")]
+[assembly: AssemblyCompany("Aguirre Gonzalo Adolfo")]
+[assembly: AssemblyProduct("Milonga Generator")]
 [assembly: AssemblyCopyright("Copyright ©  2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +21,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("25ba4ed8-87fd-4df3-b53f-49229e33c0f0")]
+[assembly: Guid("3802b143-2b16-4474-ac8c-f1139b803410")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -32,6 +33,6 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.1.0.0")]
-[assembly: AssemblyFileVersion("1.1.0.0")]
+[assembly: AssemblyVersion("2.0.0.0")]
+[assembly: AssemblyFileVersion("2.0.0.0")]
 [assembly: NeutralResourcesLanguage("es-AR")]
